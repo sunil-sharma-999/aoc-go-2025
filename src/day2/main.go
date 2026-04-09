@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
+
+	"github.com/sunil-sharma-999/aoc-go-2025/src/utils"
 )
 
 func repeatedNum(num int) int {
@@ -21,16 +21,10 @@ func repeatedNum(num int) int {
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	var line strings.Builder
-	for scanner.Scan() {
-		line.WriteString(scanner.Text())
-	}
-	if scanner.Err() != nil {
-		panic("IDK WHATS HAPPENING")
-	}
+	line := utils.ReadAllText()
+
 	invalidIDRanges := [][2]int{}
-	for str := range strings.SplitSeq(line.String(), ",") {
+	for str := range strings.SplitSeq(line, ",") {
 		invalidIDR := [2]int{}
 		splitStrArr := strings.Split(str, "-")
 		invalidIDR[0], _ = strconv.Atoi(splitStrArr[0])

@@ -1,24 +1,15 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
+
+	"github.com/sunil-sharma-999/aoc-go-2025/src/utils"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
+	rotations := utils.ReadLines()
 
-	rotations := []string{}
-
-	for scanner.Scan() {
-		rotations = append(rotations, scanner.Text())
-	}
-
-	if scanner.Err() != nil {
-		panic("error reading standard input")
-	}
 	start := 50
 	part1C := 0
 	part2C := 0

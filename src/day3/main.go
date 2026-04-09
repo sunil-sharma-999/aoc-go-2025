@@ -1,21 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
+
+	"github.com/sunil-sharma-999/aoc-go-2025/src/utils"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	banks := []string{}
-	for scanner.Scan() {
-		banks = append(banks, scanner.Text())
-	}
-	if scanner.Err() != nil {
-		panic("IDK WHATS HAPPENING")
-	}
+	banks := utils.ReadLines()
 
 	part1 := 0
 

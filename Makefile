@@ -1,25 +1,25 @@
-SRC_DIR := ./src
-BUILD_DIR := ./dist
+DAY   ?= $(day)
+INPUT ?= $(if $(filter f,$(MAKECMDGOALS)),full,demo)
 
-# Find all main.go files in src/day* directories
-MAIN_FILES := $(shell find $(SRC_DIR) -name main.go)
+.DEFAULT_GOAL := run
 
-.PHONY: all
-all: $(MAIN_FILES:$(SRC_DIR)/%/main.go=$(BUILD_DIR)/%)
+run:
+	@go build -o ./dist/day$(DAY) ./src/day$(DAY)/main.go
+	@echo "=== Day $(DAY) - $(INPUT) ==="
+	@start=$$(python3 -c 'import time;print(int(time.time()*1e9))'); \
+	./dist/day$(DAY) < ./data/day$(DAY)/$(INPUT).txt; \
+	end=$$(python3 -c 'import time;print(int(time.time()*1e9))'); \
+	echo "--- $$(( (end - start) / 1000000 ))ms ---"
 
-# Build rule
-$(BUILD_DIR)/%: $(SRC_DIR)/%/main.go
-	@echo "Building $<"
-	mkdir -p $(dir $@)
-	go build -o $@ $<
+new:
+	@mkdir -p ./src/day$(DAY) ./data/day$(DAY)
+	@touch ./data/day$(DAY)/demo.txt ./data/day$(DAY)/full.txt
+	@cp template.go ./src/day$(DAY)/main.go
+	@echo "Scaffolded day$(DAY)"
 
-.PHONY: run
-run: $(BUILD_DIR)/day$(word 2, $(MAKECMDGOALS))
-	@ \
-	day=$(word 2, $(MAKECMDGOALS)); \
-	args=$(filter-out $@ $(day),$(MAKECMDGOALS)); \
-	$(BUILD_DIR)/day$$day $$args
+clean:
+	rm -rf ./dist
 
-# Prevent make from treating day number as a target
-%:
-	@:
+f: run
+
+.PHONY: run new clean f
