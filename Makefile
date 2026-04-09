@@ -5,11 +5,10 @@ INPUT ?= $(if $(filter f,$(MAKECMDGOALS)),full,demo)
 
 run:
 	@go build -o ./dist/day$(DAY) ./src/day$(DAY)/main.go
+	@echo ""
 	@echo "=== Day $(DAY) - $(INPUT) ==="
-	@start=$$(python3 -c 'import time;print(int(time.time()*1e9))'); \
-	./dist/day$(DAY) < ./data/day$(DAY)/$(INPUT).txt; \
-	end=$$(python3 -c 'import time;print(int(time.time()*1e9))'); \
-	echo "--- $$(( (end - start) / 1000000 ))ms ---"
+	@./dist/day$(DAY) < ./data/day$(DAY)/$(INPUT).txt
+	@echo ""
 
 new:
 	@mkdir -p ./src/day$(DAY) ./data/day$(DAY)

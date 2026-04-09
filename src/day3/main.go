@@ -9,6 +9,7 @@ import (
 
 func main() {
 	banks := utils.ReadLines()
+	defer utils.Track()()
 
 	part1 := 0
 

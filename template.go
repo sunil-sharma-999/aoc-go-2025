@@ -8,6 +8,7 @@ import (
 
 func main() {
 	lines := utils.ReadLines()
+	defer utils.Track()()
 
 	part1 := 0
 	part2 := 0

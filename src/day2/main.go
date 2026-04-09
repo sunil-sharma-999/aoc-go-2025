@@ -22,6 +22,7 @@ func repeatedNum(num int) int {
 
 func main() {
 	line := utils.ReadAllText()
+	defer utils.Track()()
 
 	invalidIDRanges := [][2]int{}
 	for str := range strings.SplitSeq(line, ",") {

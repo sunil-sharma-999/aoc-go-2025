@@ -9,6 +9,7 @@ import (
 
 func main() {
 	rotations := utils.ReadLines()
+	defer utils.Track()()
 
 	start := 50
 	part1C := 0

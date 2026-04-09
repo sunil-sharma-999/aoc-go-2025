@@ -6,7 +6,16 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
+
+func Track() func() {
+	fmt.Println()
+	start := time.Now()
+	return func() {
+		fmt.Printf("\n--- %dms ---\n", time.Since(start).Milliseconds())
+	}
+}
 
 func ReadLines() []string {
 	scanner := bufio.NewScanner(os.Stdin)
